@@ -1,0 +1,54 @@
+{
+  "name": "@faizaanceg/pandora",
+  "version": "0.0.1",
+  "description": "A tiny wrapper over LocalStorage to improve DX",
+  "main": "lib/pandora.cjs.js",
+  "module": "lib/pandora.esm.js",
+  "source": "index.js",
+  "repository": {
+    "url": "https://github.com/aulisius/pandora"
+  },
+  "scripts": {
+    "prebundle": "rimraf lib",
+    "bundle": "rollup -c",
+    "prepare": "npm run bundle",
+    "dev": "rollup -c -w",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest"
+  },
+  "keywords": [
+    "pandora",
+    "localstorage",
+    "storage"
+  ],
+  "author": "Md Faizaan <aulisius7@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/preset-env": "7.4.3",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.7.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.7.1",
+    "prettier": "^1.17.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.1",
+    "rollup-plugin-filesize": "^6.0.1",
+    "rollup-plugin-terser": "^4.0.4"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ]
+  },
+  "files": [
+    "lib/",
+    "README.md"
+  ]
+}

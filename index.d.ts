@@ -10,7 +10,7 @@ declare interface Pandora<T> {
 
   remove<K extends keyof T>(key: K): void;
 
-  // Would return only keys that are removed, if there are persisent keys, they wont be returned aka removed
+  // Would return only keys that are removed, if there are persisent keys, they wont be returned i.e. removed
   clear(removeAll?: boolean): Partial<T>;
 
   // Only stored keys from the Schema are returned, so partial is used.

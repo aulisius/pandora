@@ -4,6 +4,7 @@
   "description": "A tiny wrapper over LocalStorage to improve DX",
   "main": "lib/pandora.cjs.js",
   "module": "lib/pandora.esm.js",
+  "typings": "index.d.ts",
   "source": "index.js",
   "repository": {
     "url": "https://github.com/aulisius/pandora"

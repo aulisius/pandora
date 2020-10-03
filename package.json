@@ -50,6 +50,7 @@
   },
   "files": [
     "lib/",
-    "README.md"
+    "README.md",
+    "index.d.ts"
   ]
 }

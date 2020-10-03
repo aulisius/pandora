@@ -7,8 +7,6 @@
     "strictFunctionTypes": true,
     "baseUrl": "./",
     "lib": ["es6", "dom"],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": ["index.d.ts", "example.ts"]
+    "noEmit": true
+  }
 }

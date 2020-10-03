@@ -3,16 +3,18 @@ declare interface options {
   shouldPersist?: boolean;
 }
 
-declare interface pandora<T> {
+declare interface Pandora<T> {
   set<K extends keyof T>(key: K, value: T[K], opts?: options): void;
 
   get<K extends keyof T>(key: K, defaultValue?: T[K]): T[K];
 
   remove<K extends keyof T>(key: K): void;
 
-  clear(removeAll?: boolean): T;
+  // Would return only keys that are removed, if there are persisent keys, they wont be returned aka removed
+  clear(removeAll?: boolean): Partial<T>;
 
-  getSnapshot(): T;
+  // Only stored keys from the Schema are returned, so partial is used.
+  getSnapshot(): Partial<T>;
 }
 
-export default pandora;
+export default Pandora;

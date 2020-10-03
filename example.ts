@@ -8,7 +8,7 @@ type StorageSchema = {
   username: string;
   count: number;
   object: sampleObject;
-  persistantKey: string;
+  persistentKey: string;
 };
 
 let pandora: pandora<StorageSchema>;
@@ -33,9 +33,9 @@ console.log(fromStorage.someKey); // value;
 pandora.clear();
 
 // Persist values
-pandora.set("persistantKey", value, { shouldPersist: true });
+pandora.set("persistentKey", value, { shouldPersist: true });
 pandora.clear();
-pandora.get("persistantKey") === value; // true
+pandora.get("persistentKey") === value; // true
 
 //get snapshot
 console.log(pandora.getSnapshot());

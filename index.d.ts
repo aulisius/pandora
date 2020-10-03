@@ -1,10 +1,10 @@
-declare interface options {
+declare interface PandoraOptions {
   ttl?: number;
   shouldPersist?: boolean;
 }
 
 declare interface Pandora<T> {
-  set<K extends keyof T>(key: K, value: T[K], opts?: options): void;
+  set<K extends keyof T>(key: K, value: T[K], opts?: PandoraOptions): void;
 
   get<K extends keyof T>(key: K, defaultValue?: T[K]): T[K];
 

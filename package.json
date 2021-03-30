@@ -1,6 +1,6 @@
 {
   "name": "@faizaanceg/pandora",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A tiny wrapper over LocalStorage to improve DX",
   "main": "dist/index.js",
   "module": "dist/pandora.esm.js",

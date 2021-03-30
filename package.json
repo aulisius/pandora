@@ -2,7 +2,8 @@
   "name": "@faizaanceg/pandora",
   "version": "1.0.0",
   "description": "A tiny wrapper over LocalStorage to improve DX",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/pandora.esm.js",
   "source": "index.ts",
   "repository": {
     "url": "https://github.com/aulisius/pandora"

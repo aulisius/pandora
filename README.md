@@ -86,7 +86,7 @@ pandora.get("key") === value; // true
 
 ```
 
-For more examples, you can check out the `index.test.js` file.
+For more examples, you can check out the `index.test.ts` file.
 
 ## Tests
 

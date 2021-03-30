@@ -1,14 +1,20 @@
-// @ts-check
-let defaults = { ttl: Number.MAX_SAFE_INTEGER, shouldPersist: false };
+interface Options {
+  ttl?: number;
+  shouldPersist?: boolean;
+}
 
-function set(key, value, opts = {}) {
+let defaults: Options = { ttl: Number.MAX_SAFE_INTEGER, shouldPersist: false };
+
+function set<T = unknown>(key: string, value: T, opts: Options = {}) {
   localStorage.setItem(
     key,
     JSON.stringify({ createdOn: Date.now(), value, ...defaults, ...opts })
   );
 }
 
-function getInternal(key) {
+type Internal<T> = Options & { value: T };
+
+function getInternal<R = unknown>(key: string): void | Internal<R> {
   try {
     let item = JSON.parse(localStorage.getItem(key));
     let isExpired = Date.now() >= item.createdOn + item.ttl;
@@ -18,16 +24,16 @@ function getInternal(key) {
   }
 }
 
-function get(key, defaultValue = null) {
-  let item = getInternal(key);
+function get<T = unknown>(key: string, defaultValue: T = null): T {
+  let item = getInternal<T>(key);
   return item ? item.value : defaultValue;
 }
 
-function remove(key) {
+function remove(key: string) {
   localStorage.removeItem(key);
 }
 
-function forEach(cb) {
+function forEach(cb: (key: string, value: Internal<any>) => void) {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     let item = getInternal(key);
@@ -37,7 +43,7 @@ function forEach(cb) {
   }
 }
 
-function clear(removeAll = false) {
+function clear(removeAll = false): Record<string, any> {
   if (removeAll) {
     let perishedItems = getSnapshot();
     localStorage.clear();
@@ -56,7 +62,7 @@ function clear(removeAll = false) {
   return perishedItems;
 }
 
-function getSnapshot() {
+function getSnapshot(): Record<string, any> {
   let items = {};
   forEach((key, item) => {
     items = { ...items, [key]: item.value };

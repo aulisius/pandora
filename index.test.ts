@@ -1,7 +1,7 @@
 import storage from "./index";
 
-const wait = ms =>
-  new Promise(resolve => setTimeout(resolve, ms)).catch(e => e);
+const wait = (ms) =>
+  new Promise((resolve) => setTimeout(resolve, ms)).catch((e) => e);
 
 describe("Storage wrapper", () => {
   beforeEach(() => localStorage.clear());

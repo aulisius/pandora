@@ -5,14 +5,14 @@ import pandora from "./index";
 /*
   localStorage.setItem("username", "pandora");
 */
-pandora.set("username", "pandora");
+pandora.set<string>("username", "pandora");
 
 // Get an item
 
 /*
   let value = localStorage.getItem("key");
 */
-let value = pandora.get("key");
+let value = pandora.get<string>("key");
 
 // Managing default values
 
@@ -20,7 +20,7 @@ let value = pandora.get("key");
   let defaultValue = 1;
   let count = localStorage.getItem("count") || defaultValue;
 */
-let count = pandora.get("count", 1);
+let count = pandora.get<number>("count", 1);
 
 // Dealing with objects
 
@@ -34,7 +34,7 @@ let count = pandora.get("count", 1);
 let object = { someKey: "value" };
 pandora.set("object", object);
 
-let fromStorage = pandora.get("object");
+let fromStorage = pandora.get<{ someKey: "string" }>("object");
 console.log(fromStorage.someKey); // value;
 
 // Clear items

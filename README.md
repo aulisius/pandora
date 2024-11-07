@@ -1,4 +1,5 @@
 # @faizaanceg/pandora
+<a href="https://pkg-size.dev/@faizaanceg/pandora"><img src="https://pkg-size.dev/badge/bundle/1075" title="Bundle size for @faizaanceg/pandora"></a>
 
 A tiny wrapper over `LocalStorage` to improve DX.
 
@@ -8,7 +9,6 @@ Ever felt that `localStorage` is good but it could be _better_? This library bri
 
 ### Benefits
 
-- Tiny (< 500B gzipped and minified).
 - Smooth use with objects.
 - Expirable values (configurable with `ttl` option).
 

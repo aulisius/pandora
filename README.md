@@ -1,7 +1,7 @@
 # @faizaanceg/pandora
 <a href="https://pkg-size.dev/@faizaanceg/pandora"><img src="https://pkg-size.dev/badge/bundle/1075" title="Bundle size for @faizaanceg/pandora"></a>
 
-A tiny wrapper over `LocalStorage` to improve DX.
+A tiny wrapper over `Storage` to improve DX.
 
 ## Motivation
 
@@ -27,21 +27,28 @@ yarn add @faizaanceg/pandora
 ## Usage
 
 ```js
-import pandora from "@faizaanceg/pandora";
+import KV from "@faizaanceg/pandora";
+import { KeyValueStore } from "@faizaanceg/pandora/kv";
+
+// Can also work with any object that implements `Storage`.
+
+const sessionKV = new KeyValueStore(sessionStorage);
+sessionKV.set("ui-preference", "dark");
+let uiPreference = sessionKV.get("ui-preference") // "dark"
 
 // Set an item
 
 /*
   localStorage.setItem("username", "pandora");
 */
-pandora.set("username", "pandora");
+KV.set("username", "pandora");
 
 // Get an item
 
 /*
   let value = localStorage.getItem("key");
 */
-let value = pandora.get("key");
+let value = KV.get("key");
 
 // Managing default values
 
@@ -49,7 +56,7 @@ let value = pandora.get("key");
   let defaultValue = 1;
   let count = localStorage.getItem("count") || defaultValue;
 */
-let count = pandora.get("count", 1);
+let count = KV.get("count", 1);
 
 // Dealing with objects
 
@@ -61,9 +68,9 @@ let count = pandora.get("count", 1);
   console.log(fromStorage.someKey); // value
 */
 let object = { someKey: "value" };
-pandora.set("object", object);
+KV.set("object", object);
 
-let fromStorage = pandora.get("object"); // JSON.parse happens internally
+let fromStorage = KV.get("object"); // JSON.parse happens internally
 console.log(fromStorage.someKey); // value;
 
 // Clear items
@@ -71,7 +78,7 @@ console.log(fromStorage.someKey); // value;
 /*
   localStorage.clear()
 */
-pandora.clear();
+KV.clear();
 
 // Persist values
 
@@ -80,13 +87,13 @@ pandora.clear();
   localStorage.clear();
   localStorage.setItem("key", value);
 */
-pandora.set("key", value, { shouldPersist: true });
-pandora.clear();
-pandora.get("key") === value; // true
+KV.set("key", value, { shouldPersist: true });
+KV.clear();
+KV.get("key") === value; // true
 
 ```
 
-For more examples, you can check out the `index.test.ts` file.
+For more examples, you can check out the `test.mjs` file.
 
 ## Tests
 

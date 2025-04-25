@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "baseUrl": "./src",
+    "outDir": "dist",
     "target": "esnext",
-    "module": "esnext",
+    "module": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
     "declaration": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "moduleResolution": "nodenext"
   }
 }

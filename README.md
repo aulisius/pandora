@@ -1,110 +1,92 @@
 # @faizaanceg/pandora
-<a href="https://pkg-size.dev/@faizaanceg/pandora"><img src="https://pkg-size.dev/badge/bundle/1075" title="Bundle size for @faizaanceg/pandora"></a>
+<a href="https://pkg-size.dev/@faizaanceg/pandora"><img src="https://pkg-size.dev/badge/bundle/1384" title="Bundle size for @faizaanceg/pandora"></a>
 
-A tiny wrapper over `Storage` to improve DX.
+A tiny, type-friendly wrapper over `Storage` with support for default values, TTL, subscriptions, and persistence.
 
-## Motivation
+## Features
 
-Ever felt that `localStorage` is good but it could be _better_? This library bridges that gap and gives you a pleasant experience when working with `localStorage`.
-
-### Benefits
-
-- Smooth use with objects.
-- Expirable values (configurable with `ttl` option).
+- Smooth use with objects
+- Expirable values via TTL
+- Subscriptions for reactive updates
+- Selective persistence
+- Zero dependencies
 
 ## Installation
 
 ```sh
-npm install @faizaanceg/pandora --save
-```
-
-or
-
-```sh
+npm install @faizaanceg/pandora
+# or
 yarn add @faizaanceg/pandora
 ```
 
-## Usage
+## Quick Start
 
-```js
-import KV from "@faizaanceg/pandora";
+```ts
 import { KeyValueStore } from "@faizaanceg/pandora/kv";
 
-// Can also work with any object that implements `Storage`.
+const store = new KeyValueStore(localStorage);
 
-const sessionKV = new KeyValueStore(sessionStorage);
-sessionKV.set("ui-preference", "dark");
-let uiPreference = sessionKV.get("ui-preference") // "dark"
+// Store and retrieve values
+store.set("theme", "dark");
+store.get("theme"); // "dark"
 
-// Set an item
+// Use default values
+store.get("missing", "fallback"); // "fallback"
 
-/*
-  localStorage.setItem("username", "pandora");
-*/
-KV.set("username", "pandora");
+// Store objects (automatically serialized)
+store.set("user", { name: "Alice" });
+store.get("user"); // { name: "Alice" }
 
-// Get an item
+// Set with TTL (expires in ms)
+store.set("otp", 123456, { ttl: 1000 });
 
-/*
-  let value = localStorage.getItem("key");
-*/
-let value = KV.get("key");
-
-// Managing default values
-
-/*
-  let defaultValue = 1;
-  let count = localStorage.getItem("count") || defaultValue;
-*/
-let count = KV.get("count", 1);
-
-// Dealing with objects
-
-/*
-  let object = { someKey: "value" };
-  localStorage.setItem("object", JSON.stringify(object));
-
-  let fromStorage = JSON.parse(localStorage.getItem("object"));
-  console.log(fromStorage.someKey); // value
-*/
-let object = { someKey: "value" };
-KV.set("object", object);
-
-let fromStorage = KV.get("object"); // JSON.parse happens internally
-console.log(fromStorage.someKey); // value;
-
-// Clear items
-
-/*
-  localStorage.clear()
-*/
-KV.clear();
-
-// Persist values
-
-/*
-  let value  = localStorage.getItem("key");
-  localStorage.clear();
-  localStorage.setItem("key", value);
-*/
-KV.set("key", value, { shouldPersist: true });
-KV.clear();
-KV.get("key") === value; // true
-
+// Set with persistence (survives non-forced clears)
+store.set("token", "abc123", { shouldPersist: true });
+store.clear(); // token survives
+store.clear(true); // token removed
 ```
 
-For more examples, you can check out the `test.mjs` file.
+## Subscriptions
 
-## Tests
+Subscribe to changes on specific keys:
+
+```ts
+const unsubscribe = store.subscribe("my-key", () => {
+  console.log("Value changed to:", store.get("my-key"));
+});
+
+store.set("my-key", { name: "Bob" }); // triggers the callback
+unsubscribe(); // stops listening
+```
+
+- Multiple listeners per key supported
+- Each `subscribe()` call returns a cleanup function
+
+## 🧹 Other APIs
+
+```ts
+store.remove("key");         // Remove a key
+store.clear(force?: boolean); // Clear all keys (forced or only non-persistent)
+store.getSnapshot();         // Returns all stored key-value pairs
+```
+
+## Also Available
+
+A default export for simple usage:
+
+```ts
+import KV from "@faizaanceg/pandora"; // This uses localStorage
+
+KV.set("username", "pandora");
+KV.get("username"); // "pandora"
+```
+
+## Running Tests
 
 ```sh
 npm install
 npm test
 ```
-
-## Dependencies
-
-None
 
 ## License
 

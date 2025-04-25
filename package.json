@@ -2,18 +2,25 @@
   "name": "@faizaanceg/pandora",
   "version": "1.1.1",
   "description": "A tiny wrapper over LocalStorage to improve DX",
-  "main": "dist/index.js",
-  "module": "dist/pandora.esm.js",
-  "source": "index.ts",
+  "source": "src/index.mts",
   "repository": {
     "url": "https://github.com/aulisius/pandora"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "./kv": {
+      "import": "./dist/kv.mjs",
+      "types": "./dist/kv.d.mts"
+    }
+  },
   "scripts": {
-    "build": "tsdx build -i index.ts",
-    "lint": "tsdx lint",
-    "start": "tsdx watch -i index.ts",
-    "prepare": "npm run build",
-    "test": "jest"
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "node --experimental-test-coverage test.mjs"
   },
   "keywords": [
     "pandora",
@@ -22,40 +29,12 @@
   ],
   "author": "Md Faizaan <aulisius7@gmail.com>",
   "license": "MIT",
-  "types": "dist/index.d.ts",
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "^26.0.22",
-    "@typescript-eslint/parser": "^4.20.0",
-    "eslint": "^7.23.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
-    "rimraf": "^2.6.3",
-    "ts-jest": "^26.5.4",
-    "tsdx": "^0.14.1",
-    "typescript": "^4.2.3"
-  },
-  "jest": {
-    "preset": "ts-jest"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "prettier"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "env": {
-      "browser": true,
-      "es6": true
-    },
-    "rules": {
-      "prettier/prettier": "error",
-      "no-restricted-globals": "error"
-    }
+    "eslint": "9.25.1",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.0"
   },
   "files": [
     "dist/",
